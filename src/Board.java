@@ -10,11 +10,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Board extends JPanel
+
+/**
+ * FOLLOW STRATEGY PATTERN FOR THE BOARD
+ */
+public class Board
 {
-	private int width;
-	private int height;
-	
+
+
+
+	/*
 	public Board(int width, int height)
 	{
 		this.width = width;
@@ -44,6 +49,6 @@ public class Board extends JPanel
 		};
 		
 		add(new JLabel(barIcon));
+		*/
 	}
-	
-}
+

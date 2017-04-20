@@ -1,8 +1,8 @@
-import java.awt.Shape;
+import java.awt.*;
 
 public interface BoardLayout {
 
-	public Shape getPits();
-	
-	public Shape getGoals();
+    public Shape pit();
+
+    public Shape Mancala();
 }

@@ -1,16 +1,17 @@
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class RegularLayout implements BoardLayout
 {
-	public Shape getPits() 
+	public Shape pit()
 	{
-		return new Ellipse2D.Double(0,0,60,60);
+		return new Rectangle2D.Double(0,0,60,60);
 	}
 
-	public Shape getGoals() 
+	public Shape Mancala()
 	{
-		return new Ellipse2D.Double(0,0,60,400);
+		return new Rectangle2D.Double(0,0,60,400);
 	}
 
 }
