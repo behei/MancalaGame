@@ -56,28 +56,33 @@ public class MancalaGame
 		{
 			frame.setVisible(false); //hide frame
 			
-			if (marbles.getSelectedObjects().toString().equals("3"))
+			
+			RegularLayout r = new RegularLayout();
+			SecondLayout s = new SecondLayout();
+			
+			
+			if (layout.getSelectedObjects().toString().equals("Regular"))
 			{
-				//3 marbles
-				if (layout.getSelectedItem().toString().equals("Regualar"))
+				Board game = new Board(r);
+				if (marbles.getSelectedItem().toString().equals("3"))
 				{
-					//boardlayout = regularlayout
+					game.placeMarbles(3);
 				}
 				else
 				{
-					//boardlayout = secondlayout
+					game.placeMarbles(4);
 				}
 			}
 			else
 			{
-				//4 marbles
-				if (layout.getSelectedItem().toString().equals("Regualar"))
+				Board game = new Board(s);
+				if (layout.getSelectedItem().toString().equals("3"))
 				{
-					//boardlayout = regularlayout
+					game.placeMarbles(3);
 				}
 				else
 				{
-					//boardlayout = secondlayout
+					game.placeMarbles(4);
 				}
 			}
 

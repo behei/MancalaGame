@@ -1,31 +1,43 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import javafx.scene.shape.Ellipse;
 
-public class Pit extends JButton implements ActionListener
+/*
+ * This class will be the class with the listeners for the pits 
+ */
+public class Pit 
 {
+	ArrayList<ChangeListener> listeners;
+	private ArrayList<Ellipse> list;
+
 	
-	int num = 0;
-	public Pit()
-	{
-		addActionListener(this);
+	public Pit(ArrayList<Ellipse> list) {
+		this.list = list;
+		listeners = new ArrayList<ChangeListener>();
 	}
 
-	public void actionPerformed(ActionEvent arg0) 
-	{
-		Ellipse cir = new Ellipse();
-		if (num == 0)
-		{
-			cir.resize(20, 60);
+	
+	public void attach(ChangeListener l) {
+		listeners.add(l);
+	}
+
+	
+	public ArrayList<Ellipse> getList() {
+		return list;
+	}
+
+	
+	public void add(Ellipse e) {
+		list.add(e);
+		for (ChangeListener a : listeners) {
+			a.stateChanged(new ChangeEvent(this));
 		}
-		else
-		{
-			cir.resize(20, 20);
-		}
-		num++;
 	}
 }

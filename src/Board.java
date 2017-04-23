@@ -1,54 +1,46 @@
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
+import java.awt.BorderLayout;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
-import javax.swing.Icon;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-/**
- * FOLLOW STRATEGY PATTERN FOR THE BOARD
+import javafx.scene.shape.Ellipse;
+
+/*
+ *  This class will be responsible for drawing the board and grabbing to model MVC Pattern
+ *  I have started the code which is similar to the way I did HW3 but changed from text to ellipse
  */
-public class Board
-{
+public class Board extends JFrame implements ChangeListener {
+	
+	private Pit p;
+	private ArrayList<Ellipse2D> list = new ArrayList<Ellipse2D>();
 
+	//Board takes the layout
+	public Board(BoardLayout l) {
 
+		JTextField field = new JTextField();
+		Ellipse el = new Ellipse(20,20);
 
-	/*
-	public Board(int width, int height)
+	
+		add(field, BorderLayout.SOUTH);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+	public void placeMarbles(int marbles)
 	{
-		this.width = width;
-		this.height = height;
-		
-		Icon barIcon = new Icon() 
-		{
-			public int getIconWidth() 
-			{
-				return width;
-			}
-
-			public int getIconHeight() 
-			{
-				return height;
-			}
-
-			public void paintIcon(Component c, Graphics g, int x, int y) {
-				Graphics2D g2 = (Graphics2D) g;
-
-				g2.setColor(Color.GRAY);
-
-				Rectangle2D rectangle = new Rectangle(width, height);
-				g2.fill(rectangle);
-				
-			}
-		};
-		
-		add(new JLabel(barIcon));
-		*/
+		//put marbles in pits
 	}
 
+	public void stateChanged(ChangeEvent e) {
+		
+		
+	}
+}
