@@ -20,9 +20,11 @@ public class Board extends JFrame implements ChangeListener {
 	
 	private Pit p;
 	private ArrayList<Ellipse2D> list = new ArrayList<Ellipse2D>();
+	private BoardLayout l;
 
 	//Board takes the layout
 	public Board(BoardLayout l) {
+		this.l = l;
 
 		JTextField field = new JTextField();
 		Ellipse el = new Ellipse(20,20);
@@ -37,6 +39,15 @@ public class Board extends JFrame implements ChangeListener {
 	public void placeMarbles(int marbles)
 	{
 		//put marbles in pits
+		startGame(l, marbles);
+		
+	}
+	
+	public void startGame(BoardLayout l, int marbles)
+	{
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setVisible(true);
 	}
 
 	public void stateChanged(ChangeEvent e) {
