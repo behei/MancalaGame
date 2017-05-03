@@ -23,25 +23,11 @@ public class Board extends JFrame implements ChangeListener {
 	private BoardLayout l;
 
 	//Board takes the layout
-	public Board(BoardLayout l) {
-		this.l = l;
-
-		JTextField field = new JTextField();
-		Ellipse el = new Ellipse(20,20);
-
-	
-		add(field, BorderLayout.SOUTH);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-	
-	public void placeMarbles(int marbles)
+	public Board(BoardLayout l) 
 	{
-		//put marbles in pits
-		startGame(l, marbles);
 		
 	}
+	
 	
 	public void startGame(BoardLayout l, int marbles)
 	{
