@@ -4,5 +4,5 @@ public interface BoardLayout {
 
     public Shape pit();
 
-    public Shape Mancala();
+    public Shape mancala();
 }

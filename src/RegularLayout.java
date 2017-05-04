@@ -9,7 +9,7 @@ public class RegularLayout implements BoardLayout
 		return new Rectangle2D.Double(0,0,60,60);
 	}
 
-	public Shape Mancala()
+	public Shape mancala()
 	{
 		return new Rectangle2D.Double(0,0,60,400);
 	}

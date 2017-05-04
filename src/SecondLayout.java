@@ -14,12 +14,12 @@ public class SecondLayout implements BoardLayout
 {
     public Shape pit()
     {
-        return new Ellipse2D.Double(0,0,60,60);
+        return new Ellipse2D.Double(0,0,80,80);
     }
 
-    public Shape Mancala()
+    public Shape mancala()
     {
-        return new Ellipse2D.Double(0,0,60,400);
+        return new Ellipse2D.Double(0,0,80,400);
     }
 
 
