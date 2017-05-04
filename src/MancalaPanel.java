@@ -21,7 +21,7 @@ public class MancalaPanel extends JPanel
 	      Graphics2D g2 = (Graphics2D) g;
 	      
 	      g2.draw(l.mancala());
-	     
+	      g2.fill(l.mancala());
 	   }
 
 }

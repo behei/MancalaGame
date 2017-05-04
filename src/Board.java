@@ -80,7 +80,7 @@ public class Board extends JFrame implements ChangeListener {
 	public void startGame(BoardLayout l, int marbles)
 	{
 		this.startingMarbles = marbles;
-		setSize(800, 500);
+		setSize(900, 500);
 		setTitle("Mancala");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
