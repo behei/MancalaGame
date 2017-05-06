@@ -45,7 +45,7 @@ public class MancalaView extends JFrame
         
         
         newGame = new JButton("New Game");
-        newGame.setForeground(Color.WHITE);
+        newGame.setForeground(Color.BLACK);
         
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) 
