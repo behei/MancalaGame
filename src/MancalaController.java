@@ -88,7 +88,12 @@ public class MancalaController
 	
 	
 	public boolean checkTurnPlayer1() {
-		return false;
+		if(data.isPlayer1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	
