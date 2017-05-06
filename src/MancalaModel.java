@@ -26,7 +26,7 @@ public class MancalaModel {
 	}
 
 	
-	public MancalaModel copy() {
+	public MancalaModel Copy() {
 		MancalaModel tmp = new MancalaModel(numberOfMarbles);
 		tmp.isPlayer1 = this.isPlayer1;
 		Collections.copy(tmp.board, board);
@@ -46,7 +46,8 @@ public class MancalaModel {
 
 	
 
-	public int move(int index) {
+	public int move(int index) //actually moves the stones
+	{
 		return 0;
 	}
 

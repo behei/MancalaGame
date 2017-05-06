@@ -50,6 +50,7 @@ public class MancalaView extends JFrame
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) 
             {
+            	
                 if (three.isSelected())
                 {
                 	controller.newGame(3);
@@ -80,9 +81,10 @@ public class MancalaView extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 userInt = new SecondLayout();
-                display();
+                display(); //when a button is clicked multiple times the layouts overlap
             }
         });
+        
         buttons.add(second);
         JButton regular = new JButton("Regular Layout");
         regular.addActionListener(new ActionListener() {
@@ -90,7 +92,7 @@ public class MancalaView extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 userInt = new RegularLayout();
-                display();
+                display(); //when a button is clicked multiple times the layouts overlap
             }
         });
         buttons.add(regular);
@@ -107,10 +109,13 @@ public class MancalaView extends JFrame
 
     
     public void display() {
-        board.removeAll();
+    	
+        board.removeAll(); //this is not removing the previous board, when you click a layout multiple times it does not go away
         board.revalidate();
         board.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+        
+        
         for (int i = 0; i < 14; i++) 
         {
             Pit pit;
@@ -142,7 +147,9 @@ public class MancalaView extends JFrame
                 pit.setName((6-i) + "");
             }
             
-            pit.addMouseListener(new MouseAdapter() {
+            pit.addMouseListener(new MouseAdapter() { //here is the mouse listener, so we should check if move isValid
+            										  //if true then move the pit that is selected
+            										  //else we should check makeMove which see's which invalid move is made
                 public void mouseClicked(MouseEvent e) 
                 {
                 	if (controller.checkWinState() == 4) 

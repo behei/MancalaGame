@@ -1,5 +1,6 @@
 
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 
@@ -8,7 +9,7 @@ public class MancalaController
 	public int undo1; 
 	public int undo2; 
 	public MancalaModel data; 
-	public MancalaModel previous;
+	public MancalaModel prevoiusData;
 	private MancalaView view;
 	
 	
@@ -29,36 +30,69 @@ public class MancalaController
 		undo1 = 0;
 		undo2 = 0; 
 		data = new MancalaModel(numOfMarbles);
-		previous = data;
+		prevoiusData = data;
         view = v;
 	}
 	
 	
 	public void newGame(int marbles)
 	{
+		view.dispose();                  //hides old game and makes a new window of a new fresh game
+		view = new MancalaView();
+		view.setSize(new Dimension(1000, 500));  
+        MancalaController c = new MancalaController(marbles, view); //changes the marbles but we still needs to change the layout
+        view.setData(c);   
+		
+		
+		
         data.numberOfMarbles = marbles;
 		undo1 = 0;
 		undo2 = 0;
 		data = new MancalaModel(data.numberOfMarbles);
-		previous = data;
+		prevoiusData = data;
 		data.isPlayer1 = true;
         view.display();
 	}
 	
 	
-	public int makeMove(int index)
+	public int makeMove(int pit) //this seems to check for which invalid move is made
 	{
-		previous = data.copy();
-		
-		if(index == data.HOME_1 || index == data.HOME_2) {
-			return 0;
-		}
 		return 0;
 	}
 	
-	public void undo()
+	public void undo() //i wrote the undo logic, but the actual moving of marbles still needs to be done
 	{
-		
+	    //if (player1 turn)
+		//{
+			//if (isValid)
+			//{
+				if (undo1 < 3)
+				{
+					//undo turn
+					undo1++;
+				}
+				else 
+				{
+					//player1 is out of undo's
+				}
+			//}
+		//}
+				
+		//else it is player 2's turn
+			//{
+				//if (isValid)
+				//{
+					if (undo2 < 3)
+					{
+						//undo turn
+						undo2++;
+					}
+					else 
+					{
+						//player2 is out of undo's
+					}
+				//}
+			//}
 	}
 	
 	
@@ -104,16 +138,11 @@ public class MancalaController
 	
 	private boolean isValidMove(int pitIndex)
 	{
-		for(pitIndex = 0; pitIndex <= 6; pitIndex++) {
-			if(data.isPlayer1) {
-				return true;
-			}
-		}
-		for(pitIndex = 7; pitIndex <= 12; pitIndex++) {
-			if(!data.isPlayer1) {
-				return true;
-			}
-		}
+		if(data.isPlayer1 && pitIndex >=0 && pitIndex <=6 )
+			return true;
+		if(!data.isPlayer1 && pitIndex >=7 && pitIndex <=12 )
+			return true;
+		
 		return false;
 	}
 	

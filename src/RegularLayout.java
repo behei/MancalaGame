@@ -12,12 +12,12 @@ class RegularLayout implements MancalaLayout {
 
     
     public Color getBoardColor() {
-        return Color.WHITE;
+        return Color.BLACK;
     }  
     
     
     public Color getMarbleColor() {
-        return  Color.BLACK;
+        return  Color.WHITE;
     }  
     
 }
