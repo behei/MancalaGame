@@ -1,24 +1,5 @@
-public class Pit 
-{
-	private int stones;
+import java.awt.*;
+import java.*;
 
-	public Pit(int startingStones) 
-	{
-		stones = startingStones;
-	}
-
-	public void add() 
-	{
-		stones++;
-	}
-
-	public void setStones(int stones) 
-	{
-		this.stones = stones;
-	}
-
-
-	public int getAmount() {
-		return stones;
-	}
+public class Pit {
 }

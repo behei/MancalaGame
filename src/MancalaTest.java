@@ -11,18 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+public class MancalaTest {
 
-public class MancalaTest 
-{
-	//private static Pit pits[] = new Pit[14];
-
-	static JComboBox marbles;
-	static JComboBox layout;
-	static JFrame frame;
-	//static JPanel panel;
-
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		GameStart s = new GameStart();
 	}
 }
