@@ -8,7 +8,7 @@ public class MancalaController
 	public int undo1; 
 	public int undo2; 
 	public MancalaModel data; 
-	public MancalaModel prevoiusData;
+	public MancalaModel previous;
 	private MancalaView view;
 	
 	
@@ -29,7 +29,7 @@ public class MancalaController
 		undo1 = 0;
 		undo2 = 0; 
 		data = new MancalaModel(numOfMarbles);
-		prevoiusData = data;
+		previous = data;
         view = v;
 	}
 	
@@ -40,7 +40,7 @@ public class MancalaController
 		undo1 = 0;
 		undo2 = 0;
 		data = new MancalaModel(data.numberOfMarbles);
-		prevoiusData = data;
+		previous = data;
 		data.isPlayer1 = true;
         view.display();
 	}
@@ -48,6 +48,11 @@ public class MancalaController
 	
 	public int makeMove(int index)
 	{
+		previous = data.copy();
+		
+		if(index == data.HOME_1 || index == data.HOME_2) {
+			return 0;
+		}
 		return 0;
 	}
 	
@@ -99,11 +104,16 @@ public class MancalaController
 	
 	private boolean isValidMove(int pitIndex)
 	{
-		if(data.isPlayer1 && pitIndex >=0 && pitIndex <=6 )
-			return true;
-		if(!data.isPlayer1 && pitIndex >=7 && pitIndex <=12 )
-			return true;
-		
+		for(pitIndex = 0; pitIndex <= 6; pitIndex++) {
+			if(data.isPlayer1) {
+				return true;
+			}
+		}
+		for(pitIndex = 7; pitIndex <= 12; pitIndex++) {
+			if(!data.isPlayer1) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

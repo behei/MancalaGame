@@ -26,7 +26,7 @@ public class MancalaModel {
 	}
 
 	
-	public MancalaModel Copy() {
+	public MancalaModel copy() {
 		MancalaModel tmp = new MancalaModel(numberOfMarbles);
 		tmp.isPlayer1 = this.isPlayer1;
 		Collections.copy(tmp.board, board);
