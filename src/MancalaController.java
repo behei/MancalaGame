@@ -73,22 +73,22 @@ public class MancalaController {
 		if(pit == data.HOME_2) {
 			return 0;
 		}
+		if (data.getMarble(pit) == 0) {
+			return 2;
+		}
 
 		if (isValidMove(pit)) {
 			return 1;
 		}
 
-		if (data.getMarble(pit) == 0) {
-			return 2;
-		}
-
 		int endingIndex = data.move(pit);
-
-		if (data.isPlayer1 && endingIndex == data.HOME_1) {
-			data.isPlayer1 = true;
-		} else if (!data.isPlayer1 && endingIndex == data.HOME_2) {
+		
+		if (!data.isPlayer1 && endingIndex == data.HOME_2) {
 			data.isPlayer1 = false;
-		} else {
+		}
+		else if (data.isPlayer1 && endingIndex == data.HOME_1) {
+			data.isPlayer1 = true;
+		}  else {
 			data.isPlayer1 = !data.isPlayer1;
 		}
 		view.display();
@@ -138,11 +138,11 @@ public class MancalaController {
 		if (data.checkWinState() != 0) {
 			int home1 = getMancala1();
 			int home2 = getMancala2();
-			if (home1 > home2) {
-				return 1;
-			}
 			if (home2 > home1) {
 				return 2;
+			}
+			if (home1 > home2) {
+				return 1;
 			}
 			else {
 				return 3;
