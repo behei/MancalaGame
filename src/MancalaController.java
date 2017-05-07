@@ -104,10 +104,14 @@ public class MancalaController {
 			data = previousData;
 			view.display();
 		}
-		if (undo2 < 3) {
+		
+		else if (undo2 < 3) {
 			undo2++;
 			data = previousData;
 			view.display();
+		}
+		else {
+			return;
 		}
 	}
 
@@ -134,14 +138,17 @@ public class MancalaController {
 		if (data.checkWinState() != 0) {
 			int home1 = getMancala1();
 			int home2 = getMancala2();
-			if (home1 > home2)
+			if (home1 > home2) {
 				return 1;
-			else if (home2 > home1)
+			}
+			if (home2 > home1) {
 				return 2;
-			else
+			}
+			else {
 				return 3;
+			}
 		}
-		return 4;
+		return 0;
 	}
 
 	/**
@@ -178,10 +185,10 @@ public class MancalaController {
 	 * @return true if it is a turn of first user
 	 */
 	public boolean checkTurnPlayer1() {
-		if (data.isPlayer1) {
-			return true;
-		} else {
+		if (!data.isPlayer1) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -193,11 +200,14 @@ public class MancalaController {
 	 * @return true if is valid, false otherwise
 	 */
 	private boolean isValidMove(int pitIndex) {
-		if (data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6)
+		if (data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6) {
 			return true;
-		if (!data.isPlayer1 && pitIndex >= 7 && pitIndex <= 12)
+		}
+		else if (!data.isPlayer1 && pitIndex >= 7 && pitIndex <= 12) {
 			return true;
-
-		return false;
+		}
+		else {
+			return false;
+		}
 	}
 }

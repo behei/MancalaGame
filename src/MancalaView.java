@@ -163,7 +163,7 @@ public class MancalaView extends JFrame {
                  * @param e as a mouse event
                  */
                 public void mouseClicked(MouseEvent e) {
-                    if (controller.checkWinState() == 4) {
+                    if (controller.checkWinState() == 0) {
 
                         int state = controller.makeMove(parsePit(pit));
                         if (state == 0) {
