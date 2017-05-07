@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * the Mancala Controller class that makes moves and checks their validity
+ * 
  * @author Jordan
  * @author Tyler
  * @author Misha
@@ -17,12 +18,14 @@ public class MancalaController {
 	public MancalaModel previousData;
 	private MancalaView view;
 
-
 	/**
-	 * the constructor of Controller that sets the undos and data, also stores a previous data
-	 * for undo
-	 * @param numOfMarbles holds how many marbles the pit has, 3 or 4
-	 * @param v as a current Mancala View
+	 * the constructor of Controller that sets the undos and data, also stores a
+	 * previous data for undo
+	 * 
+	 * @param numOfMarbles
+	 *            holds how many marbles the pit has, 3 or 4
+	 * @param v
+	 *            as a current Mancala View
 	 */
 	public MancalaController(int numOfMarbles, MancalaView v) {
 		undo1 = 0;
@@ -33,14 +36,17 @@ public class MancalaController {
 	}
 
 	/**
-	 * method that create a new game after the game is started or 'New Game' button is clicked
-	 * @param marbles holds how many marbles the pit
+	 * method that create a new game after the game is started or 'New Game'
+	 * button is clicked
+	 * 
+	 * @param marbles
+	 *            holds how many marbles the pit
 	 */
 	public void newGame(int marbles) {
-		view.dispose(); 
+		view.dispose();
 		view = new MancalaView();
 		view.setSize(new Dimension(1000, 500));
-		MancalaController c = new MancalaController(marbles, view); 
+		MancalaController c = new MancalaController(marbles, view);
 		view.setData(c);
 
 		data.numberOfMarbles = marbles;
@@ -54,38 +60,39 @@ public class MancalaController {
 
 	/**
 	 * method that makes the move and renders the view accordingly
-	 * @param pit , on which the move is done
+	 * 
+	 * @param pit
+	 *            , on which the move is done
 	 * @return the status of the move
 	 */
-	public int makeMove(int pit)
-	{
+	public int makeMove(int pit) {
 		previousData = data.copy();
-		if(pit == data.HOME_1 || pit == data.HOME_2) {
+		if (pit == data.HOME_1) {
 			return 0;
 		}
-		
-		if(isValidMove(pit)) {
+		if(pit == data.HOME_2) {
+			return 0;
+		}
+
+		if (isValidMove(pit)) {
 			return 1;
 		}
-		
-		if(data.getMarble(pit) == 0) {
+
+		if (data.getMarble(pit) == 0) {
 			return 2;
 		}
-		
+
 		int endingIndex = data.move(pit);
-		
-		
-		if(data.isPlayer1 && endingIndex == data.HOME_1)
-		{
+
+		if (data.isPlayer1 && endingIndex == data.HOME_1) {
 			data.isPlayer1 = true;
-		} else if(!data.isPlayer1 && endingIndex == data.HOME_2)
-		{
+		} else if (!data.isPlayer1 && endingIndex == data.HOME_2) {
 			data.isPlayer1 = false;
 		} else {
 			data.isPlayer1 = !data.isPlayer1;
 		}
-                view.display();
-        return 3;
+		view.display();
+		return 3;
 	}
 
 	/**
@@ -96,7 +103,7 @@ public class MancalaController {
 			undo1++;
 			data = previousData;
 			view.display();
-		} 
+		}
 		if (undo2 < 3) {
 			undo2++;
 			data = previousData;
@@ -120,18 +127,18 @@ public class MancalaController {
 
 	/**
 	 * checks if the game came to the end
+	 * 
 	 * @return the status of the game
 	 */
 	public int checkWinState() {
-		if(data.checkWinState() != 0)
-		{
-			int home1 = getMancala1(); 
-			int home2 = getMancala2(); 
-			if(home1 > home2)
+		if (data.checkWinState() != 0) {
+			int home1 = getMancala1();
+			int home2 = getMancala2();
+			if (home1 > home2)
 				return 1;
-			else if(home2 > home1)
+			else if (home2 > home1)
 				return 2;
-			else 
+			else
 				return 3;
 		}
 		return 4;
@@ -143,6 +150,7 @@ public class MancalaController {
 	public ArrayList<Integer> getPlayer1Marbles() {
 		return data.getMarbles1();
 	}
+
 	/**
 	 * @return the arraylist of the marbles for the player 2
 	 */
@@ -165,8 +173,8 @@ public class MancalaController {
 	}
 
 	/**
-	 * check's if it is first user turn
-	 * if not, second player's
+	 * check's if it is first user turn if not, second player's
+	 * 
 	 * @return true if it is a turn of first user
 	 */
 	public boolean checkTurnPlayer1() {
@@ -179,7 +187,9 @@ public class MancalaController {
 
 	/**
 	 * checks if the move by player is valid
-	 * @param pitIndex as the index of pit that user tries to make a move on
+	 * 
+	 * @param pitIndex
+	 *            as the index of pit that user tries to make a move on
 	 * @return true if is valid, false otherwise
 	 */
 	private boolean isValidMove(int pitIndex) {
