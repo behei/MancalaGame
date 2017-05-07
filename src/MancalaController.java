@@ -9,14 +9,6 @@ public class MancalaController {
 	public MancalaModel previousData;
 	private MancalaView view;
 
-	public int getundo1() {
-		return undo1;
-	}
-
-	public int getundo2() {
-		return undo2;
-	}
-
 	public MancalaController(int numOfMarbles, MancalaView v) {
 		undo1 = 0;
 		undo2 = 0;
@@ -77,13 +69,26 @@ public class MancalaController {
 		if (undo1 < 3) {
 			undo1++;
 			data = previousData;
+			view.display();
 		} 
 		if (undo2 < 3) {
 			undo2++;
 			data = previousData;
+			view.display();
+		}
+		if (undo1 >= 3) {
+			System.out.println("Undo more than 3"); //testing purpose
+		}
+		if (undo2 >= 3) {
+			System.out.println("Undo more than 3"); //testing purpose
 		}
 	}
-
+	public int getUndo1() {
+		return this.undo1;
+	}
+	public int getUndo2() {
+		return this.undo2;
+	}
 	public int checkWinState() {
 		if(data.checkWinState() != 0)
 		{

@@ -12,18 +12,16 @@ public class MancalaView extends JFrame
     private final ButtonGroup buttonGroup;
     private final JRadioButton three;
     private final JRadioButton four;
-    private MancalaLayout userInt = new SecondLayout();
+    private MancalaLayout userInt = new RegularLayout();
     private final JButton newGame;
     
     
     public MancalaView() 
     {
         setLayout(new BorderLayout());
-        
         board = new JPanel();
         
         add(board, BorderLayout.CENTER);
-        
         displayMessage.setText("Player 1");
         add(displayMessage, BorderLayout.SOUTH);
         
@@ -37,15 +35,15 @@ public class MancalaView extends JFrame
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	controller.undo();
-                undo.setEnabled(false);
+                    controller.undo();
+                    undo.setEnabled(false);
             }
         });
         temp.add(undo, BorderLayout.EAST);
         
         
         newGame = new JButton("New Game");
-        newGame.setForeground(Color.BLACK);
+        newGame.setForeground(Color.GREEN);
         
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) 
