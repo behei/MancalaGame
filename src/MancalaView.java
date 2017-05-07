@@ -2,6 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * The Mancala View class that handles the GUI logic
+ * @author Jordan
+ * @author Tyler
+ * @author Misha
+ * @version 0.0.1
+ * @since 05/06/2017
+ */
 public class MancalaView extends JFrame {
 
     private MancalaController controller;
@@ -14,7 +22,10 @@ public class MancalaView extends JFrame {
     private MancalaLayout userInt = new RegularLayout();
     private final JButton newGame;
 
-
+    /**
+     * the constructs that creates an initial screen
+     * and adds all the GUI parts on it
+     */
     public MancalaView() {
         setLayout(new BorderLayout());
         board = new JPanel();
@@ -100,7 +111,11 @@ public class MancalaView extends JFrame {
         setVisible(true);
     }
 
-
+    /**
+     * the method that is used to render the pits
+     * and also holds all the listener that are used
+     * in a game logic
+     */
     public void display() {
 
         board.removeAll(); //this is not removing the previous board, when you click a layout multiple times it does not go away
@@ -137,12 +152,16 @@ public class MancalaView extends JFrame {
                 c.gridy = 0;
                 pit = new Pit(100, 100, controller.getPlayer2Marble().get(i - 1));
                 pit.setMinimumSize(new Dimension(100, 100));
-                pit.setName((6 - i) + "");
+                pit.setName((7 - i) + "");
+                //System.out.println(pit.getName());
             }
             i++;
 
             pit.addMouseListener(new MouseAdapter() {
-
+                /**
+                 * a mouse listener that checks the move of the player, if it is valid or no
+                 * @param e as a mouse event
+                 */
                 public void mouseClicked(MouseEvent e) {
                     if (controller.checkWinState() == 4) {
 
@@ -178,11 +197,20 @@ public class MancalaView extends JFrame {
         board.repaint();
     }
 
+    /**
+     * sets the data from the mancala controller
+     * @param c as a current mancala controller
+     */
     void setData(MancalaController c) {
         this.controller = c;
         display();
     }
 
+    /**
+     * method that converts a name of a pit from string to int
+     * @param pit as a pit whose name to convert
+     * @return an integer value of a pit name
+     */
     private int parsePit(Pit pit) {
     	return Integer.parseInt(pit.getName());
     }
