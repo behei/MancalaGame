@@ -2,6 +2,14 @@
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+/**
+ * the Mancala Controller class that makes moves and checks their validity
+ * @author Jordan
+ * @author Tyler
+ * @author Misha
+ * @version 0.0.1
+ * @since 05/06/2017
+ */
 public class MancalaController {
 	public int undo1;
 	public int undo2;
@@ -9,6 +17,13 @@ public class MancalaController {
 	public MancalaModel previousData;
 	private MancalaView view;
 
+
+	/**
+	 * the constructor of Controller that sets the undos and data, also stores a previous data
+	 * for undo
+	 * @param numOfMarbles holds how many marbles the pit has, 3 or 4
+	 * @param v as a current Mancala View
+	 */
 	public MancalaController(int numOfMarbles, MancalaView v) {
 		undo1 = 0;
 		undo2 = 0;
@@ -17,6 +32,10 @@ public class MancalaController {
 		view = v;
 	}
 
+	/**
+	 * method that create a new game after the game is started or 'New Game' button is clicked
+	 * @param marbles holds how many marbles the pit
+	 */
 	public void newGame(int marbles) {
 		view.dispose(); 
 		view = new MancalaView();
@@ -33,7 +52,12 @@ public class MancalaController {
 		view.display();
 	}
 
-	public int makeMove(int pit) 
+	/**
+	 * method that makes the move and renders the view accordingly
+	 * @param pit , on which the move is done
+	 * @return the status of the move
+	 */
+	public int makeMove(int pit)
 	{
 		previousData = data.copy();
 		if(pit == data.HOME_1 || pit == data.HOME_2) {
@@ -63,8 +87,10 @@ public class MancalaController {
                 view.display();
         return 3;
 	}
-	
 
+	/**
+	 * handles the undo logic
+	 */
 	public void undo() {
 		if (undo1 < 3) {
 			undo1++;
@@ -76,19 +102,26 @@ public class MancalaController {
 			data = previousData;
 			view.display();
 		}
-		if (undo1 >= 3) {
-			System.out.println("Undo more than 3"); //testing purpose
-		}
-		if (undo2 >= 3) {
-			System.out.println("Undo more than 3"); //testing purpose
-		}
 	}
+
+	/**
+	 * @return the undo of first player
+	 */
 	public int getUndo1() {
 		return this.undo1;
 	}
+
+	/**
+	 * @return the undo of second player
+	 */
 	public int getUndo2() {
 		return this.undo2;
 	}
+
+	/**
+	 * checks if the game came to the end
+	 * @return the status of the game
+	 */
 	public int checkWinState() {
 		if(data.checkWinState() != 0)
 		{
@@ -104,22 +137,38 @@ public class MancalaController {
 		return 4;
 	}
 
+	/**
+	 * @return the arraylist of the marbles for the player 1
+	 */
 	public ArrayList<Integer> getPlayer1Marbles() {
 		return data.getMarbles1();
 	}
-
+	/**
+	 * @return the arraylist of the marbles for the player 2
+	 */
 	public ArrayList<Integer> getPlayer2Marble() {
 		return data.getMarbles2();
 	}
 
+	/**
+	 * @return the marble of player 1
+	 */
 	public int getMancala1() {
 		return data.getMarble(data.HOME_1);
 	}
 
+	/**
+	 * @return the marble of player 2
+	 */
 	public int getMancala2() {
 		return data.getMarble(data.HOME_2);
 	}
 
+	/**
+	 * check's if it is first user turn
+	 * if not, second player's
+	 * @return true if it is a turn of first user
+	 */
 	public boolean checkTurnPlayer1() {
 		if (data.isPlayer1) {
 			return true;
@@ -128,6 +177,11 @@ public class MancalaController {
 		}
 	}
 
+	/**
+	 * checks if the move by player is valid
+	 * @param pitIndex as the index of pit that user tries to make a move on
+	 * @return true if is valid, false otherwise
+	 */
 	private boolean isValidMove(int pitIndex) {
 		if (data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6)
 			return true;
