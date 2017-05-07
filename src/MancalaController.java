@@ -138,11 +138,11 @@ public class MancalaController {
 		if (data.checkWinState() != 0) {
 			int home1 = getMancala1();
 			int home2 = getMancala2();
-			if (home1 > home2) {
-				return 1;
-			}
 			if (home2 > home1) {
 				return 2;
+			}
+			if (home1 > home2) {
+				return 1;
 			}
 			else {
 				return 3;
