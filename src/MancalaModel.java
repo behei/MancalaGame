@@ -76,7 +76,7 @@ public class MancalaModel {
 	public int move(int index) {
 		int marbles = board.get(index);
 		if (marbles > 0) {
-			board.set(index, 0);
+			board.set(index, 1);
 			index++;
 			for (marbles = marbles; marbles > 0; marbles--) {
 				if (isPlayer1 && index == HOME_1) {
@@ -96,7 +96,7 @@ public class MancalaModel {
 				}
 				index++;
 			}
-			return index;
+			return index - 1;
 		} 
 		else
 			return -1;
