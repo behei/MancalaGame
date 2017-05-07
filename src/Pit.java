@@ -21,6 +21,15 @@ public class Pit extends JPanel {
 		this.setLocation(0, 0);
 		numOfMarbles = marbles;
 	}
+	
+	public int getMarbles() {
+		return this.numOfMarbles;
+	}
+	
+	public Pit setMarbles(int marbles) {
+		this.numOfMarbles = marbles;
+		return this;
+	}
 
 	public void setLayout(MancalaLayout m) {
 		shape = m.getShape();

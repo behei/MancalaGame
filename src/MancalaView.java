@@ -108,8 +108,9 @@ public class MancalaView extends JFrame {
         board.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-
-        for (int i = 0; i < 14; i++) {
+        int i = 0;
+        while (i < 14) 
+        {
             Pit pit;
             if (i == 0) {
                 c.gridheight = 2;
@@ -138,13 +139,14 @@ public class MancalaView extends JFrame {
                 pit.setMinimumSize(new Dimension(100, 100));
                 pit.setName((6 - i) + "");
             }
+            i++;
 
             pit.addMouseListener(new MouseAdapter() {
 
                 public void mouseClicked(MouseEvent e) {
                     if (controller.checkWinState() == 4) {
 
-                        int state = controller.makeMove(Integer.parseInt(pit.getName()));
+                        int state = controller.makeMove(parsePit(pit));
                         if (state == 0) {
                             displayMessage.setText("Invalid move! The mancalas are not clickable");
                         } else if (state == 1) {
@@ -181,4 +183,7 @@ public class MancalaView extends JFrame {
         display();
     }
 
+    private int parsePit(Pit pit) {
+    	return Integer.parseInt(pit.getName());
+    }
 }

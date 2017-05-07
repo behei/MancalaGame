@@ -28,41 +28,43 @@ public class MancalaModel {
 		return tmp;
 	}
 
-	public void setMarbles(int numOfMarble) {
+	public void setMarbles(int marbles) {
 		for (int i = 0; i < SIZE; i++) {
 			if (i == HOME_1 || i == HOME_2) {
 				board.add(0);
 			} else {
-				board.add(numOfMarble);
+				board.add(marbles);
 			}
 		}
 	}
 
 	public int move(int index) {
 		int marbles = board.get(index);
-
-		if(marbles > 0) {
+		if (marbles > 0) {
 			board.set(index, 0);
 			index++;
-			while(marbles != 0) {
-				if(isPlayer1 && index == HOME_1) {
-					board.set(index, board.get(index)+1);
+			for (marbles = board.get(index); marbles != 0; marbles--) {
+				if (isPlayer1 && index == HOME_1) {
+					board.set(index, board.get(index) + 1);
 					marbles--;
+				} else if (!isPlayer1 && index == HOME_2) {
+					board.set(index, board.get(index) + 1);
+				} else {
+					board.set(index, board.get(index) + 1);
 				}
-				else if(!isPlayer1 && index == HOME_2) {
-					board.set(index, board.get(index)+1);
-					marbles--;
-				}
-				else {
-					board.set(index,board.get(index)+1);
-					//if (marbles > 0)
-						marbles--;
+
+				if (index == 13) {
+					if (marbles == 0 && isPlayer1) {
+						return 13;
+					}
+					index = -1;
 				}
 				index++;
 			}
 			return index - 1;
-		}
-		else return -1;
+		} 
+		else
+			return -1;
 	}
 
 	public int getMarble(int index) {
@@ -75,16 +77,20 @@ public class MancalaModel {
 
 	public ArrayList<Integer> getMarbles2() {
 		ArrayList<Integer> two = new ArrayList<Integer>();
-		for (int i = 5; i >= 0; i--) {
+		int i = 5;
+		while (i >= 0) {
 			two.add(board.get(i));
+			i--;
 		}
 		return two;
 	}
 
 	public ArrayList<Integer> getMarbles1() {
 		ArrayList<Integer> one = new ArrayList<Integer>();
-		for (int i = 7; i < 13; i++) {
+		int i = 7;
+		while  (i < 13) {
 			one.add(board.get(i));
+			i++;
 		}
 		return one;
 	}
