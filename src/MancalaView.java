@@ -2,9 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MancalaView extends JFrame
-{
-    
+public class MancalaView extends JFrame {
+
     private MancalaController controller;
     private final JPanel board;
     private final JLabel displayMessage = new JLabel();
@@ -14,20 +13,19 @@ public class MancalaView extends JFrame
     private final JRadioButton four;
     private MancalaLayout userInt = new RegularLayout();
     private final JButton newGame;
-    
-    
-    public MancalaView() 
-    {
+
+
+    public MancalaView() {
         setLayout(new BorderLayout());
         board = new JPanel();
-        
+
         add(board, BorderLayout.CENTER);
         displayMessage.setText("Player 1");
         add(displayMessage, BorderLayout.SOUTH);
-        
+
         JPanel buttons = new JPanel();
         JPanel temp = new JPanel(new BorderLayout());
-        
+
         undo = new JButton("Undo");
         undo.setBackground(Color.LIGHT_GRAY);
         undo.setEnabled(false);
@@ -35,27 +33,24 @@ public class MancalaView extends JFrame
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    controller.undo();
-                    undo.setEnabled(false);
+                controller.undo();
+                undo.setEnabled(false);
+
             }
         });
         temp.add(undo, BorderLayout.EAST);
-        
-        
+
+
         newGame = new JButton("New Game");
-        newGame.setForeground(Color.GREEN);
-        
+        newGame.setForeground(Color.BLACK);
+
         newGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) 
-            {
-            	
-                if (three.isSelected())
-                {
-                	controller.newGame(3);
-                } 
-                else 
-                {
-                	controller.newGame(4);
+            public void actionPerformed(ActionEvent e) {
+
+                if (three.isSelected()) {
+                    controller.newGame(3);
+                } else {
+                    controller.newGame(4);
                 }
                 undo.setEnabled(false);
             }
@@ -71,8 +66,8 @@ public class MancalaView extends JFrame
         buttons.add(numOfMarbles);
         buttons.add(three);
         buttons.add(four);
-        
-        
+
+
         JButton second = new JButton("Second Layout");
         second.addActionListener(new ActionListener() {
 
@@ -82,7 +77,7 @@ public class MancalaView extends JFrame
                 display(); //when a button is clicked multiple times the layouts overlap
             }
         });
-        
+
         buttons.add(second);
         JButton regular = new JButton("Regular Layout");
         regular.addActionListener(new ActionListener() {
@@ -97,32 +92,31 @@ public class MancalaView extends JFrame
         buttons.add(newGame);
         temp.add(buttons, BorderLayout.CENTER);
         add(temp, BorderLayout.NORTH);
-        
-        
+
+
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }
 
-    
+
     public void display() {
-    	
+
         board.removeAll(); //this is not removing the previous board, when you click a layout multiple times it does not go away
         board.revalidate();
         board.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        
-        
-        for (int i = 0; i < 14; i++) 
-        {
+
+
+        for (int i = 0; i < 14; i++) {
             Pit pit;
             if (i == 0) {
                 c.gridheight = 2;
-                pit = new Pit(100,200 , controller.getMancala2());
+                pit = new Pit(100, 200, controller.getMancala2());
                 pit.setMinimumSize(new Dimension(200, 200));
                 pit.setName("6");
-            } else if(i == 13) {
+            } else if (i == 13) {
                 c.gridheight = 2;
                 c.gridx = 7;
                 c.gridy = 0;
@@ -132,69 +126,53 @@ public class MancalaView extends JFrame
             } else if (i > 6) {
                 c.gridheight = 1;
                 c.gridx = i - 6;
-                c.gridy = 1 ;  
-                pit = new Pit(100,100, controller.getPlayer1Marbles().get(i-7));
-                pit.setMinimumSize(new Dimension(100,100));
+                c.gridy = 1;
+                pit = new Pit(100, 100, controller.getPlayer1Marbles().get(i - 7));
+                pit.setMinimumSize(new Dimension(100, 100));
                 pit.setName(i + "");
             } else {
                 c.gridheight = 1;
                 c.gridx = i;
                 c.gridy = 0;
-                pit = new Pit(100, 100,  controller.getPlayer2Marble().get(i-1));
-                pit.setMinimumSize(new Dimension(100,100));
-                pit.setName((6-i) + "");
+                pit = new Pit(100, 100, controller.getPlayer2Marble().get(i - 1));
+                pit.setMinimumSize(new Dimension(100, 100));
+                pit.setName((6 - i) + "");
             }
-            
-            pit.addMouseListener(new MouseAdapter() { 
-            	
-                public void mouseClicked(MouseEvent e) 
-                {
-                	if (controller.checkWinState() == 4) 
-                	{
-                        
+
+            pit.addMouseListener(new MouseAdapter() {
+
+                public void mouseClicked(MouseEvent e) {
+                    if (controller.checkWinState() == 4) {
+
                         int state = controller.makeMove(Integer.parseInt(pit.getName()));
-                        if(state == 0)	
-                        {
-                            displayMessage.setText("Invalid move! The macalas are not clickable");
-                        }
-                        else if(state == 1)	
-                        {
+                        if (state == 0) {
+                            displayMessage.setText("Invalid move! The mancalas are not clickable");
+                        } else if (state == 1) {
                             displayMessage.setText("Invalid move! You can click on opponent's board");
-                        }
-                        else if(state == 2)	
-                        {
+                        } else if (state == 2) {
                             displayMessage.setText("Invalid move! The pit is empty");
                         }
-                        
-                        
+
                         undo.setEnabled(true);
                     }
-                }      
+                }
             });
-            
+
             pit.setLayout(userInt);
-            board.add(pit, c);   
+            board.add(pit, c);
         }
-        if (controller.checkWinState() == 1) 
-        {
-            JOptionPane.showMessageDialog(board,"Player 1 wins");
-        } 
-        else if (controller.checkWinState() == 2) 
-        {
-        	JOptionPane.showMessageDialog(board,"Player 2 wins");
-        } 
-        else if (controller.checkWinState() == 3)
-        {
-        	JOptionPane.showMessageDialog(board,"Draw");
-        }
-        else if (controller.checkTurnPlayer1()) 
-        {
+        if (controller.checkWinState() == 1) {
+            JOptionPane.showMessageDialog(board, "Player 1 wins");
+        } else if (controller.checkWinState() == 2) {
+            JOptionPane.showMessageDialog(board, "Player 2 wins");
+        } else if (controller.checkWinState() == 3) {
+            JOptionPane.showMessageDialog(board, "Draw");
+        } else if (controller.checkTurnPlayer1()) {
             displayMessage.setText("Player 1");
-        } else 
-        {
+        } else {
             displayMessage.setText("Player 2");
         }
-        
+
         board.repaint();
     }
 
@@ -202,5 +180,5 @@ public class MancalaView extends JFrame
         this.controller = c;
         display();
     }
-    
+
 }

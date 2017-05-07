@@ -40,6 +40,7 @@ public class MancalaModel {
 
 	public int move(int index) {
 		int marbles = board.get(index);
+
 		if(marbles > 0) {
 			board.set(index, 0);
 			index++;
@@ -54,7 +55,8 @@ public class MancalaModel {
 				}
 				else {
 					board.set(index,board.get(index)+1);
-					marbles--;
+					//if (marbles > 0)
+						marbles--;
 				}
 				index++;
 			}
