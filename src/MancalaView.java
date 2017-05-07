@@ -166,11 +166,14 @@ public class MancalaView extends JFrame {
                     if (controller.checkWinState() == 0) {
 
                         int state = controller.makeMove(parsePit(pit));
-                        if (state == 0) {
-                            displayMessage.setText("Invalid move! The mancalas are not clickable");
-                        } else if (state == 1) {
+                        
+                        if (state == 1) {
                             displayMessage.setText("Invalid move! You can click on opponent's board");
-                        } else if (state == 2) {
+                        } 
+                        else if (state == 0) {
+                            displayMessage.setText("Invalid move! The mancalas are not clickable");
+                        } 
+                        else if (state == 2) {
                             displayMessage.setText("Invalid move! The pit is empty");
                         }
 
@@ -188,14 +191,17 @@ public class MancalaView extends JFrame {
         else {
         	displayMessage.setText("Player 2");
         }
-        if (controller.checkWinState() == 2) {
-            JOptionPane.showMessageDialog(board, "Player 2 wins");
-        } else if (controller.checkWinState() == 3) {
+        if (controller.checkWinState() == 3) {
             JOptionPane.showMessageDialog(board, "Draw");
-        } else if (controller.checkWinState() == 1) {
+        }
+        else if (controller.checkWinState() == 2) {
+            JOptionPane.showMessageDialog(board, "Player 2 wins");
+        } 
+        else if (controller.checkWinState() == 1) {
             
             JOptionPane.showMessageDialog(board, "Player 1 wins");
         } 
+        
 
         board.repaint();
     }
