@@ -32,7 +32,7 @@ import java.awt.Dimension;
  *
  * TEAM #6 - SPARTANS
  */
-public class MancalaTester {
+public class MancalaTest {
 
     /**
      * The main method of the entire project that gives a beginning to everything
