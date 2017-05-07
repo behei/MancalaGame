@@ -200,14 +200,11 @@ public class MancalaController {
 	 * @return true if is valid, false otherwise
 	 */
 	private boolean isValidMove(int pitIndex) {
-		if (data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6) {
-			return true;
-		}
-		else if (!data.isPlayer1 && pitIndex >= 7 && pitIndex <= 12) {
-			return true;
+		if (!data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6 || data.isPlayer1 && pitIndex >= 7 && pitIndex <= 12) {
+			return false;
 		}
 		else {
-			return false;
+			return true;
 		}
 	}
 }
