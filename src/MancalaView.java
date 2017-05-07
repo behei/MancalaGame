@@ -147,9 +147,8 @@ public class MancalaView extends JFrame
                 pit.setName((6-i) + "");
             }
             
-            pit.addMouseListener(new MouseAdapter() { //here is the mouse listener, so we should check if move isValid
-            										  //if true then move the pit that is selected
-            										  //else we should check makeMove which see's which invalid move is made
+            pit.addMouseListener(new MouseAdapter() { 
+            	
                 public void mouseClicked(MouseEvent e) 
                 {
                 	if (controller.checkWinState() == 4) 
@@ -158,18 +157,15 @@ public class MancalaView extends JFrame
                         int state = controller.makeMove(Integer.parseInt(pit.getName()));
                         if(state == 0)	
                         {
-                            String temp = displayMessage.getText();
-                            displayMessage.setText(temp.split(": ")[0] + ": Invalid move! The macalas are not clickable");
+                            displayMessage.setText("Invalid move! The macalas are not clickable");
                         }
                         else if(state == 1)	
                         {
-                            String temp = displayMessage.getText();
-                            displayMessage.setText(temp.split(": ")[0] + ": Invalid move! You can click on opponent's board");
+                            displayMessage.setText("Invalid move! You can click on opponent's board");
                         }
                         else if(state == 2)	
                         {
-                            String temp = displayMessage.getText();
-                            displayMessage.setText(temp.split(":")[0] + ": Invalid move! The pit is empty");
+                            displayMessage.setText("Invalid move! The pit is empty");
                         }
                         
                         
@@ -181,6 +177,27 @@ public class MancalaView extends JFrame
             pit.setLayout(userInt);
             board.add(pit, c);   
         }
+        if (controller.checkWinState() == 1) 
+        {
+            JOptionPane.showMessageDialog(board,"Player 1 wins");
+        } 
+        else if (controller.checkWinState() == 2) 
+        {
+        	JOptionPane.showMessageDialog(board,"Player 2 wins");
+        } 
+        else if (controller.checkWinState() == 3)
+        {
+        	JOptionPane.showMessageDialog(board,"Draw");
+        }
+        else if (controller.checkTurnPlayer1()) 
+        {
+            displayMessage.setText("Player 1");
+        } else 
+        {
+            displayMessage.setText("Player 2");
+        }
+        
+        board.repaint();
     }
 
     void setData(MancalaController c) {

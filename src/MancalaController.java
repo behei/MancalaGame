@@ -1,154 +1,134 @@
 
-
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-
-public class MancalaController
-{
-	public int undo1; 
-	public int undo2; 
-	public MancalaModel data; 
-	public MancalaModel prevoiusData;
+public class MancalaController {
+	public int undo1;
+	public int undo2;
+	public MancalaModel data;
+	public MancalaModel previousData;
 	private MancalaView view;
-	
-	
-	public int getundo1()
-	{
+
+	public int getundo1() {
 		return undo1;
 	}
-	
-	
-	public int getundo2()
-	{
+
+	public int getundo2() {
 		return undo2;
 	}
-	
-	
-	public MancalaController(int numOfMarbles, MancalaView v)
-	{
+
+	public MancalaController(int numOfMarbles, MancalaView v) {
 		undo1 = 0;
-		undo2 = 0; 
+		undo2 = 0;
 		data = new MancalaModel(numOfMarbles);
-		prevoiusData = data;
-        view = v;
+		previousData = data;
+		view = v;
 	}
-	
-	
-	public void newGame(int marbles)
-	{
-		view.dispose();                  //hides old game and makes a new window of a new fresh game
+
+	public void newGame(int marbles) {
+		view.dispose(); 
 		view = new MancalaView();
-		view.setSize(new Dimension(1000, 500));  
-        MancalaController c = new MancalaController(marbles, view); //changes the marbles but we still needs to change the layout
-        view.setData(c);   
-		
-		
-		
-        data.numberOfMarbles = marbles;
+		view.setSize(new Dimension(1000, 500));
+		MancalaController c = new MancalaController(marbles, view); 
+		view.setData(c);
+
+		data.numberOfMarbles = marbles;
 		undo1 = 0;
 		undo2 = 0;
 		data = new MancalaModel(data.numberOfMarbles);
-		prevoiusData = data;
+		previousData = data;
 		data.isPlayer1 = true;
-        view.display();
+		view.display();
+	}
+
+	public int makeMove(int pit) 
+	{
+		previousData = data.copy();
+		if(pit == data.HOME_1 || pit == data.HOME_2) {
+			return 0;
+		}
+		
+		if(isValidMove(pit)) {
+			return 1;
+		}
+		
+		if(data.getMarble(pit) == 0) {
+			return 2;
+		}
+		
+		int endingIndex = data.move(pit);
+		
+		
+		if(data.isPlayer1 && endingIndex == data.HOME_1)
+		{
+			data.isPlayer1 = true;
+		} else if(!data.isPlayer1 && endingIndex == data.HOME_2)
+		{
+			data.isPlayer1 = false;
+		} else {
+			data.isPlayer1 = !data.isPlayer1;
+		}
+                view.display();
+        return 3;
 	}
 	
-	
-	public int makeMove(int pit) //this seems to check for which invalid move is made
-	{
-		return 0;
+
+	public void undo() {
+		if (undo1 < 3) {
+			undo1++;
+			data = previousData;
+		} 
+		if (undo2 < 3) {
+			undo2++;
+			data = previousData;
+		}
 	}
-	
-	public void undo() //i wrote the undo logic, but the actual moving of marbles still needs to be done
-	{
-	    //if (player1 turn)
-		//{
-			//if (isValid)
-			//{
-				if (undo1 < 3)
-				{
-					//undo turn
-					undo1++;
-				}
-				else 
-				{
-					//player1 is out of undo's
-				}
-			//}
-		//}
-				
-		//else it is player 2's turn
-			//{
-				//if (isValid)
-				//{
-					if (undo2 < 3)
-					{
-						//undo turn
-						undo2++;
-					}
-					else 
-					{
-						//player2 is out of undo's
-					}
-				//}
-			//}
+
+	public int checkWinState() {
+		if(data.checkWinState() != 0)
+		{
+			int home1 = getMancala1(); 
+			int home2 = getMancala2(); 
+			if(home1 > home2)
+				return 1;
+			else if(home2 > home1)
+				return 2;
+			else 
+				return 3;
+		}
+		return 4;
 	}
-	
-	
-	public int checkWinState()
-	{
-		return 0;
-	}
-	
-	
-	public ArrayList<Integer> getPlayer1Marbles() 
-	{
+
+	public ArrayList<Integer> getPlayer1Marbles() {
 		return data.getMarbles1();
 	}
-	
-	
-	public ArrayList<Integer> getPlayer2Marble() 
-	{
+
+	public ArrayList<Integer> getPlayer2Marble() {
 		return data.getMarbles2();
 	}
-	
-	
-	public int getMancala1()
-	{
+
+	public int getMancala1() {
 		return data.getMarble(data.HOME_1);
 	}
-	
-	
-	public int getMancala2()
-	{
+
+	public int getMancala2() {
 		return data.getMarble(data.HOME_2);
 	}
-	
-	
+
 	public boolean checkTurnPlayer1() {
-		if(data.isPlayer1) {
+		if (data.isPlayer1) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
-	
-	private boolean isValidMove(int pitIndex)
-	{
-		if(data.isPlayer1 && pitIndex >=0 && pitIndex <=6 )
+
+	private boolean isValidMove(int pitIndex) {
+		if (data.isPlayer1 && pitIndex >= 0 && pitIndex <= 6)
 			return true;
-		if(!data.isPlayer1 && pitIndex >=7 && pitIndex <=12 )
+		if (!data.isPlayer1 && pitIndex >= 7 && pitIndex <= 12)
 			return true;
-		
+
 		return false;
 	}
-	
-	
-	private void wasPitEmpty(int endingIndex) {
-		
-	}
-	
 }
