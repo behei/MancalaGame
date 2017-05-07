@@ -182,17 +182,20 @@ public class MancalaView extends JFrame {
             pit.setLayout(userInt);
             board.add(pit, c);
         }
-        if (controller.checkWinState() == 1) {
-            JOptionPane.showMessageDialog(board, "Player 1 wins");
-        } else if (controller.checkWinState() == 2) {
+        if (controller.checkTurnPlayer1()) {
+        	displayMessage.setText("Player 1");
+        }
+        else {
+        	displayMessage.setText("Player 2");
+        }
+        if (controller.checkWinState() == 2) {
             JOptionPane.showMessageDialog(board, "Player 2 wins");
         } else if (controller.checkWinState() == 3) {
             JOptionPane.showMessageDialog(board, "Draw");
-        } else if (controller.checkTurnPlayer1()) {
-            displayMessage.setText("Player 1");
-        } else {
-            displayMessage.setText("Player 2");
-        }
+        } else if (controller.checkWinState() == 1) {
+            
+            JOptionPane.showMessageDialog(board, "Player 1 wins");
+        } 
 
         board.repaint();
     }
