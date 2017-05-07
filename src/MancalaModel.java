@@ -56,11 +56,14 @@ public class MancalaModel {
      * @param marbles that will be put in a board
      */
 	public void setMarbles(int marbles) {
-		for (int i = 0; i < SIZE; i++) {
+		int i = 0;
+		while (i < SIZE) {
 			if (i == HOME_1 || i == HOME_2) {
 				board.add(0);
+				i++;
 			} else {
 				board.add(marbles);
+				i++;
 			}
 		}
 	}
@@ -75,14 +78,14 @@ public class MancalaModel {
 		if (marbles > 0) {
 			board.set(index, 0);
 			index++;
-			for (marbles = board.get(index); marbles != 0; marbles--) {
+			for (marbles = marbles; marbles > 0; marbles--) {
 				if (isPlayer1 && index == HOME_1) {
-					board.set(index, board.get(index) + 1);
-					marbles--;
+					board.set(index, board.get(index)+1);
+					
 				} else if (!isPlayer1 && index == HOME_2) {
-					board.set(index, board.get(index) + 1);
+					board.set(index, board.get(index)+1);
 				} else {
-					board.set(index, board.get(index) + 1);
+					board.set(index, board.get(index)+1);
 				}
 
 				if (index == 13) {
@@ -93,7 +96,7 @@ public class MancalaModel {
 				}
 				index++;
 			}
-			return index - 1;
+			return index;
 		} 
 		else
 			return -1;
